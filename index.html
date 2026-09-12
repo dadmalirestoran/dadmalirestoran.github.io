@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dadmalı Restoran — Sushi & Dönər | Pulsuz Çatdırılma</title>
+<meta name="description" content="Dadmalı Restoran — Sushi, Dönər, Pizza və daha çox. Yeni Suraxanı. Pulsuz Çatdırılma! Zəng edin: +994 77 711 06 00">
+<style>
+  :root{
+    --bg:#0d0d0f; --bg2:#16161a; --card:#1c1c21; --card2:#222228;
+    --orange:#ff7a1a; --red:#e63946; --gold:#f5b301;
+    --text:#f2efe9; --muted:#a8a29a;
+    --radius:16px;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font-family:inherit}
+
+  /* ---------- ÜST SİTRİP ---------- */
+  .topbar{background:linear-gradient(90deg,var(--red),var(--orange));text-align:center;font-weight:700;padding:8px 12px;font-size:.95rem;letter-spacing:.5px;animation:pulse 2.5s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.85}}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky;top:0;z-index:100;background:rgba(13,13,15,.92);backdrop-filter:blur(10px);border-bottom:1px solid #2a2a30}
+  .nav{max-width:1150px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:14px}
+  .logo{display:flex;align-items:center;gap:10px;font-size:1.35rem;font-weight:800}
+  .logo .mark{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;background:linear-gradient(135deg,var(--orange),var(--red));box-shadow:0 4px 14px rgba(255,122,26,.45)}
+  .logo span b{color:var(--orange)}
+  .nav-links{display:flex;gap:26px;font-weight:600;font-size:.98rem}
+  .nav-links a{position:relative;transition:color .25s}
+  .nav-links a:hover{color:var(--orange)}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--orange);transition:width .3s}
+  .nav-links a:hover::after{width:100%}
+
+  /* Səbət düyməsi (header-də) */
+  .cart-btn{position:relative;background:var(--card);border:1px solid #2a2a30;color:var(--text);width:46px;height:46px;border-radius:12px;font-size:1.25rem;display:grid;place-items:center;cursor:pointer;transition:border-color .25s,transform .25s}
+  .cart-btn:hover{border-color:var(--orange);transform:translateY(-2px)}
+  .cart-count{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;border-radius:50px;background:var(--red);color:#fff;font-size:.72rem;font-weight:800;display:grid;place-items:center;padding:0 5px;border:2px solid var(--bg)}
+  .cart-count.bump{animation:bump .35s ease}
+  @keyframes bump{0%{transform:scale(1)}50%{transform:scale(1.45)}100%{transform:scale(1)}}
+
+  .call-btn{background:linear-gradient(135deg,var(--orange),var(--red));padding:10px 20px;border-radius:50px;font-weight:700;box-shadow:0 4px 16px rgba(230,57,70,.4);transition:transform .25s,box-shadow .25s;white-space:nowrap}
+  .call-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,122,26,.55)}
+  .burger{display:none;background:none;border:none;color:var(--text);font-size:1.6rem;cursor:pointer}
+
+  /* ---------- HERO ---------- */
+  .hero{max-width:1150px;margin:auto;padding:70px 20px 60px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  .badge{display:inline-block;background:rgba(245,179,1,.14);border:1px solid var(--gold);color:var(--gold);padding:7px 18px;border-radius:50px;font-weight:700;font-size:.9rem;margin-bottom:18px;animation:float 3s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.15;font-weight:900}
+  .hero h1 .grad{background:linear-gradient(90deg,var(--orange),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--muted);font-size:1.1rem;margin:18px 0 30px;max-width:520px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{padding:14px 30px;border-radius:50px;font-weight:800;font-size:1rem;cursor:pointer;border:none;transition:transform .25s,box-shadow .25s;display:inline-block}
+  .btn-primary{background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;box-shadow:0 6px 20px rgba(255,122,26,.4)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(230,57,70,.5)}
+  .btn-ghost{background:transparent;border:2px solid var(--gold);color:var(--gold)}
+  .btn-ghost:hover{background:var(--gold);color:#111;transform:translateY(-3px)}
+  .hero-art{position:relative;display:grid;place-items:center}
+  .plate{width:min(380px,80vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#2b2b33,#141416 70%);display:grid;place-items:center;font-size:clamp(6rem,16vw,9rem);box-shadow:var(--shadow),inset 0 0 60px rgba(255,122,26,.15);border:8px solid #26262c;animation:spin 40s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ring{position:absolute;inset:-20px;border-radius:50%;border:2px dashed rgba(245,179,1,.35);animation:spin 30s linear infinite reverse}
+  .free-tag{position:absolute;bottom:8%;right:2%;background:var(--red);padding:12px 22px;border-radius:14px;font-weight:800;transform:rotate(-6deg);box-shadow:0 8px 22px rgba(230,57,70,.5);animation:float 4s ease-in-out infinite}
+
+  /* ---------- FİÇER ---------- */
+  .features{max-width:1150px;margin:auto;padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .feature{background:var(--card);border:1px solid #2a2a30;border-radius:var(--radius);padding:22px;transition:transform .3s,border-color .3s}
+  .feature:hover{transform:translateY(-6px);border-color:var(--orange)}
+  .feature .ic{font-size:2rem;margin-bottom:10px}
+  .feature h3{font-size:1.05rem;margin-bottom:6px}
+  .feature p{color:var(--muted);font-size:.92rem}
+
+  /* ---------- HAQQIMIZDA ---------- */
+  .section{max-width:1150px;margin:auto;padding:70px 20px}
+  .sec-title{text-align:center;margin-bottom:44px}
+  .sec-title .kick{color:var(--orange);font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:.85rem}
+  .sec-title h2{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:900;margin-top:6px}
+  .sec-title h2 em{color:var(--gold);font-style:normal}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:stretch}
+  .about-card{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid #2a2a30;border-radius:var(--radius);padding:34px}
+  .about-card h3{color:var(--orange);margin-bottom:12px}
+  .about-card p{color:var(--muted)}
+  .contact-list{display:flex;flex-direction:column;gap:16px}
+  .contact-item{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid #2a2a30;border-radius:var(--radius);padding:18px 20px;transition:border-color .3s,transform .3s}
+  .contact-item:hover{border-color:var(--gold);transform:translateX(6px)}
+  .contact-item .ic{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;background:linear-gradient(135deg,var(--orange),var(--red));flex-shrink:0}
+  .contact-item small{display:block;color:var(--muted);font-size:.8rem}
+  .contact-item b{font-size:1.02rem}
+
+  /* ---------- MENYU ---------- */
+  .menu-tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px}
+  .tab{padding:10px 22px;border-radius:50px;background:var(--card);border:1px solid #2a2a30;color:var(--muted);font-weight:700;font-size:.92rem;cursor:pointer;transition:all .3s}
+  .tab:hover{border-color:var(--orange);color:var(--text)}
+  .tab.active{background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;border-color:transparent;box-shadow:0 5px 18px rgba(255,122,26,.4)}
+  .menu-panel{display:none}
+  .menu-panel.show{display:block;animation:fadeUp .45s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+  .items{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .item{background:var(--card);border:1px solid #2a2a30;border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:8px;transition:transform .3s,border-color .3s,box-shadow .3s}
+  .item:hover{transform:translateY(-5px);border-color:var(--orange);box-shadow:0 10px 26px rgba(0,0,0,.5)}
+  .item-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .item h4{font-size:1.03rem;font-weight:700}
+  .price{color:var(--gold);font-weight:800;white-space:nowrap}
+  .desc{color:var(--muted);font-size:.88rem}
+
+  /* Variant sətirləri + səbətə əlavə düyməsi */
+  .variant{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px dashed #33333a;font-size:.92rem;gap:10px}
+  .variant span:first-child{color:var(--text)}
+  .variant .price{color:var(--orange);font-weight:700}
+  .add-btn{background:rgba(255,122,26,.12);border:1px solid rgba(255,122,26,.5);color:var(--orange);font-weight:700;font-size:.8rem;padding:6px 13px;border-radius:50px;cursor:pointer;white-space:nowrap;transition:all .2s}
+  .add-btn:hover{background:var(--orange);color:#fff;transform:scale(1.05)}
+  .add-btn.added{background:#22c55e;border-color:#22c55e;color:#fff}
+
+  /* ---------- SƏBƏT DRAWER ---------- */
+  .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(3px)}
+  .drawer-overlay.show{opacity:1;pointer-events:auto}
+  .cart-drawer{position:fixed;top:0;right:-430px;width:min(410px,94vw);height:100vh;z-index:201;background:var(--bg2);border-left:1px solid #2a2a30;display:flex;flex-direction:column;transition:right .35s ease;box-shadow:-12px 0 40px rgba(0,0,0,.5)}
+  .cart-drawer.open{right:0}
+  .cart-header{background:linear-gradient(135deg,var(--orange),var(--red));padding:20px;display:flex;align-items:center;justify-content:space-between}
+  .cart-header h3{font-size:1.15rem;font-weight:800}
+  .cart-close{background:rgba(255,255,255,.15);color:#fff;font-size:1.1rem;border:none;width:36px;height:36px;border-radius:10px;cursor:pointer;transition:background .2s}
+  .cart-close:hover{background:rgba(255,255,255,.3)}
+  .cart-items{flex:1;overflow-y:auto;padding:16px}
+  .cart-empty{text-align:center;color:var(--muted);padding:60px 20px}
+  .cart-empty span{font-size:3rem;display:block;margin-bottom:14px}
+  .cart-item{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #26262c}
+  .cart-item-info{flex:1;min-width:0}
+  .cart-item-name{font-weight:700;font-size:.9rem}
+  .cart-item-price{font-size:.8rem;color:var(--orange);font-weight:700}
+  .qty-controls{display:flex;align-items:center;gap:8px}
+  .qty-btn{width:26px;height:26px;border-radius:8px;background:#2a2a30;color:var(--text);border:none;font-weight:800;font-size:1rem;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+  .qty-btn:hover{background:var(--orange)}
+  .qty-num{min-width:22px;text-align:center;font-weight:800;font-size:.92rem}
+  .cart-item-total{font-weight:800;font-size:.88rem;min-width:56px;text-align:right}
+  .remove-btn{background:none;border:none;color:#6b6b72;font-size:1rem;cursor:pointer;padding:4px;transition:color .2s}
+  .remove-btn:hover{color:var(--red)}
+  .cart-footer{padding:18px;border-top:2px dashed #2a2a30;background:var(--card)}
+  .cart-total-row{display:flex;justify-content:space-between;font-size:1.08rem;font-weight:800;margin-bottom:6px}
+  .cart-total-row span:last-child{color:var(--gold)}
+  .cart-delivery-note{font-size:.8rem;color:#22c55e;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+  .checkout-btn{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#25D366,#1DA851);color:#fff;font-weight:800;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .2s,box-shadow .25s}
+  .checkout-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(37,211,102,.35)}
+  .clear-btn{width:100%;margin-top:10px;padding:9px;border-radius:10px;border:1px solid #2a2a30;background:none;color:var(--muted);font-size:.85rem;cursor:pointer;transition:color .2s,border-color .2s}
+  .clear-btn:hover{color:var(--red);border-color:var(--red)}
+
+  /* ---------- MODAL (Sifariş məlumatları) ---------- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+  .modal-overlay.show{display:flex}
+  .modal{background:var(--bg2);border:1px solid #2a2a30;border-radius:var(--radius);width:min(460px,100%);max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:modalIn .3s ease both}
+  @keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+  .modal-header{background:linear-gradient(135deg,var(--orange),var(--red));padding:22px 24px;position:relative}
+  .modal-header h3{font-size:1.15rem;font-weight:800}
+  .modal-header p{font-size:.82rem;opacity:.85;margin-top:4px}
+  .modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.15);color:#fff;border:none;font-size:1.1rem;width:34px;height:34px;border-radius:9px;cursor:pointer;transition:background .2s}
+  .modal-close:hover{background:rgba(255,255,255,.3)}
+  .modal-body{padding:24px}
+  .form-group{margin-bottom:16px}
+  .form-group label{display:block;font-weight:700;font-size:.86rem;margin-bottom:6px}
+  .form-group label span{color:var(--red)}
+  .form-group input,.form-group textarea{width:100%;padding:12px 14px;border:1px solid #2a2a30;border-radius:10px;background:var(--card);color:var(--text);font-family:inherit;font-size:.95rem;transition:border-color .2s}
+  .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--orange);background:var(--card2)}
+  .order-summary{background:var(--card);border:1px dashed #33333a;border-radius:10px;padding:14px;margin-bottom:18px;font-size:.86rem;max-height:150px;overflow-y:auto}
+  .order-summary div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+  .order-summary .sum-total{border-top:1px dashed #33333a;margin-top:8px;padding-top:8px;font-weight:800;color:var(--gold)}
+  .submit-order-btn{width:100%;padding:15px;border-radius:12px;border:none;background:linear-gradient(135deg,#25D366,#1DA851);color:#fff;font-weight:800;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .2s,box-shadow .25s}
+  .submit-order-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(37,211,102,.35)}
+
+  /* ---------- TOAST ---------- */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(130px);background:var(--card2);border:1px solid #2a2a30;color:var(--text);padding:13px 24px;border-radius:50px;font-weight:600;font-size:.9rem;z-index:400;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .35s ease;display:flex;align-items:center;gap:8px}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast span{color:#22c55e;font-weight:800}
+
+  /* ---------- FUTER ---------- */
+  footer{background:var(--bg2);border-top:1px solid #2a2a30;margin-top:40px}
+  .footer-inner{max-width:1150px;margin:auto;padding:44px 20px;text-align:center}
+  .socials{display:flex;gap:14px;justify-content:center;margin:18px 0}
+  .soc{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:1.3rem;background:var(--card);border:1px solid #2a2a30;transition:all .3s}
+  .soc:hover{background:linear-gradient(135deg,var(--orange),var(--red));transform:translateY(-4px)}
+  .footer-inner p{color:var(--muted);font-size:.9rem}
+  .copy{background:#101012;padding:14px;text-align:center;color:#6b6b72;font-size:.82rem}
+
+  /* ---------- YUXARI ÇIX + ZƏNG + SƏBƏT ---------- */
+  .floating{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:99}
+  .fab{position:relative;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;box-shadow:0 8px 22px rgba(0,0,0,.5);transition:transform .25s;cursor:pointer;border:none}
+  .fab:hover{transform:scale(1.1)}
+  .fab-call{background:linear-gradient(135deg,var(--orange),var(--red))}
+  .fab-top{background:var(--card);border:1px solid #333;color:var(--gold)}
+  .fab-cart{background:var(--card2);border:1px solid var(--orange);color:var(--orange)}
+  .fab-cart .cart-count{top:-5px;right:-5px;border-color:var(--bg2)}
+
+  /* ---------- RESPONSİV ---------- */
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;text-align:center;padding-top:46px}
+    .hero p{margin-inline:auto}
+    .hero-cta{justify-content:center}
+    .hero-art{order:-1}
+    .about-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:760px){
+    .nav-links{position:fixed;top:70px;right:-100%;flex-direction:column;background:var(--bg2);width:min(78vw,320px);height:100vh;padding:40px 30px;gap:28px;border-left:1px solid #2a2a30;transition:right .35s ease;z-index:150}
+    .nav-links.open{right:0}
+    .burger{display:block}
+    .call-btn{display:none}
+    .cart-drawer{width:100vw;right:-100vw}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">🛵 PULSUZ ÇATDIRILMA — Yeni Suraxanı ərazisinə! Sifariş üçün: <a href="tel:+994777110600"><b>+994 77 711 06 00</b></a></div>
+
+<header>
+  <nav class="nav">
+    <a href="#home" class="logo"><span class="mark">🍣</span><span>Dad<b>malı</b></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Ana Səhifə</a>
+      <a href="#about">Haqqımızda</a>
+      <a href="#contact">Əlaqə</a>
+      <a href="#menu">Menyu</a>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <!-- Səbət düyməsi -->
+      <button class="cart-btn" id="cartOpenBtn" aria-label="Səbəti aç">🛒<span class="cart-count" id="cartCount">0</span></button>
+      <a href="tel:+994777110600" class="call-btn">📞 Sifariş Et</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menyu">☰</button>
+  </nav>
+</header>
+
+<!-- ============ ANA SƏHİFƏ ============ -->
+<section class="hero" id="home">
+  <div>
+    <span class="badge">✨ Yeni Suraxanı — 89 saylı məktəbin yanı</span>
+    <h1>Dadmalı Restoran<br><span class="grad">Sushi & Dönər</span></h1>
+    <p>Təzə inqrediyentlər, qızılı təmizlik və usta əllərdən çıxan dadlar. Sushi setlərimizdən dönər kabablarımıza qədər hər şey burada!</p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn btn-primary">🍱 Menyuya Bax</a>
+      <a href="tel:+994777110600" class="btn btn-ghost">📞 +994 77 711 06 00</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="ring"></div>
+    <div class="plate">🍣</div>
+    <div class="free-tag">PULSUZ ÇATDIRILMA! 🛵</div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature"><div class="ic">🛵</div><h3>Pulsuz Çatdırılma</h3><p>Sifarişləriniz qısa zamanda, pulsuz ünvana çatdırılır.</p></div>
+  <div class="feature"><div class="ic">🥩</div><h3>Təzə Məhsullar</h3><p>Hər gün təzə ət, balıq və tərəvəzlərlə hazırlanır.</p></div>
+  <div class="feature"><div class="ic">🔥</div><h3>Manqal & Sushi Bar</h3><p>Həm əsl dönər-kabab, həm peşəkar sushi ustaları.</p></div>
+  <div class="feature"><div class="ic">💰</div><h3>Sərfəli Qiymətlər</h3><p>Geniş menyu və hərkəsin cibinə uyğun qiymətlər.</p></div>
+</section>
+
+<!-- ============ HAQQIMIZDA / ƏLAQƏ ============ -->
+<section class="section" id="about">
+  <div class="sec-title"><span class="kick">Biz Kimik</span><h2>Haqqımızda & <em>Əlaqə</em></h2></div>
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>🍽️ Dadmalı Restoran</h3>
+      <p>Dadmalı Restoran olaraq məqsədimiz hər qonağımıza həm dadlı, həm keyfiyyətli, həm də sərfəli yeməklər təqdim etməkdir. Menyumuzda suşi setlər, rollar, təmiz dönərlər, manqal kababları, pizza, pide və isti yeməklər geniş seçim təklif edir.</p>
+      <br>
+      <p>Komandamız hər sifarişə öz mətbəxindəki qədər önəm verir. Yeni Suraxanı sakinlərini dadlı yeməklərlə tanış etməkdən məmnunuq!</p>
+    </div>
+    <div class="contact-list" id="contact">
+      <a class="contact-item" href="https://maps.google.com/?q=Yeni+Suraxanı+89+saylı+məktəbin+yanı" target="_blank" rel="noopener">
+        <span class="ic">📍</span>
+        <span><small>Ünvan</small><b>Yeni Suraxanı, 89 saylı məktəbin yanı</b></span>
+      </a>
+      <a class="contact-item" href="tel:+994777110600">
+        <span class="ic">📞</span>
+        <span><small>Əlaqə nömrəsi</small><b>+994 77 711 06 00</b></span>
+      </a>
+      <a class="contact-item" href="https://instagram.com/dadmali_restoran" target="_blank" rel="noopener">
+        <span class="ic">📸</span>
+        <span><small>İnstagram</small><b>@dadmali_restoran</b></span>
+      </a>
+      <a class="contact-item" href="https://tiktok.com/@dadmali_restoran" target="_blank" rel="noopener">
+        <span class="ic">🎵</span>
+        <span><small>TikTok</small><b>@dadmali_restoran</b></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENYU ============ -->
+<section class="section" id="menu">
+  <div class="sec-title"><span class="kick">Menyu</span><h2>Dadlı Seçimlərimiz <em>🍴</em></h2></div>
+
+  <div class="menu-tabs" id="menuTabs"></div>
+  <div id="menuPanels"></div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="#home" class="logo" style="justify-content:center"><span class="mark">🍣</span><span>Dad<b>malı</b></span></a>
+    <div class="socials">
+      <a class="soc" href="https://instagram.com/dadmali_restoran" target="_blank" rel="noopener" aria-label="Instagram">📸</a>
+      <a class="soc" href="https://tiktok.com/@dadmali_restoran" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
+      <a class="soc" href="tel:+994777110600" aria-label="Zəng">📞</a>
+    </div>
+    <p>Yeni Suraxanı, 89 saylı məktəbin yanı • +994 77 711 06 00</p>
+    <p>🛵 Pulsuz Çatdırılma</p>
+  </div>
+  <div class="copy">© <span id="year"></span> Dadmalı Restoran. Bütün hüquqlar qorunur.</div>
+</footer>
+
+<!-- Üzən düymələr -->
+<div class="floating">
+  <button class="fab fab-cart" id="fabCart" aria-label="Səbəti aç">🛒<span class="cart-count" id="fabCartCount">0</span></button>
+  <a class="fab fab-call" href="tel:+994777110600" aria-label="Zəng et">📞</a>
+  <button class="fab fab-top" id="toTop" aria-label="Yuxarı">↑</button>
+</div>
+
+<!-- ============ SƏBƏT DRAWER ============ -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>🛒 Səbətim</h3>
+    <button class="cart-close" id="cartCloseBtn">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><span>🛒</span>Səbətiniz hələ boşdur.<br>Menyudan seçim edin!</div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row"><span>Ümumi məbləğ:</span><span id="cartTotal">0.00 AZN</span></div>
+    <div class="cart-delivery-note">🛵 Çatdırılma: <strong>PULSUZ</strong></div>
+    <button class="checkout-btn" id="checkoutBtn">💬 WhatsApp ilə Sifarişi Tamamla</button>
+    <button class="clear-btn" id="clearCartBtn">🗑 Səbəti təmizlə</button>
+  </div>
+</aside>
+
+<!-- ============ SİFARİŞ MODALI ============ -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>📝 Sifariş Məlumatları</h3>
+      <p>Məlumatlarınızı doldurun — sifariş WhatsApp-a göndərilsin.</p>
+      <button class="modal-close" id="modalCloseBtn">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="order-summary" id="orderSummary"></div>
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="customerName">Adınız <span>*</span></label>
+          <input type="text" id="customerName" placeholder="Ad və soyadınız" required>
+        </div>
+        <div class="form-group">
+          <label for="customerPhone">Telefon nömrəniz <span>*</span></label>
+          <input type="tel" id="customerPhone" placeholder="0xx xxx xx xx" required>
+        </div>
+        <div class="form-group">
+          <label for="customerAddress">Ünvanınız <span>*</span></label>
+          <input type="text" id="customerAddress" placeholder="Məs: Yeni Suraxanı, bina, mənzil" required>
+        </div>
+        <div class="form-group">
+          <label for="customerNote">Qeyd (istəyə bağlı)</label>
+          <textarea id="customerNote" rows="2" placeholder="Əlavə qeydiniz varsa yazın..."></textarea>
+        </div>
+        <button type="submit" class="submit-order-btn">📲 WhatsApp-a Göndər</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Toast bildirişi -->
+<div class="toast" id="toast"><span>✓</span> <span id="toastText">Səbətə əlavə edildi!</span></div>
+
+<script>
+/* ================= MENYU MƏLUMATLARI ================= */
+const MENU = [
+  { id:'sets', tab:'🍱 Suşi Setlər', items:[
+    {name:'HOT SET — 30 ədəd', price:'25.00', desc:'Hot roll krevetka 10 əd • Hot roll krab 10 əd • Hot roll balıq 10 əd'},
+    {name:'BİG HOT — 50 ədəd', price:'33.00', desc:'Hot roll krab 10 əd • Hot roll toyuq 10 əd • Hot roll krevetka 10 əd • Hot roll qızıl balıq 10 əd • Hot roll mix spice roll 10 əd'},
+    {name:'MİNİ SET — 18 ədəd', price:'16.00', desc:'Kaliforniya 4 əd • Filadelfiya 4 əd • Kapa maki 5 əd • Sake maki 5 əd'},
+    {name:'MİNİ MİX SET — 28 ədəd', price:'24.00', desc:'Kaliforniya 4 əd • Filadelfiya 4 əd • Hot roll krab 5 əd • Hot roll toyuq 5 əd • Baked kapa maki 5 əd • Baked sake maki 5 əd'},
+    {name:'MİNİ MİX SET (2) — 28 ədəd', price:'25.00', desc:'Filadelfiya 8 əd • Kaliforniya 8 əd • Hot roll krab ilə 10 əd'},
+    {name:'SUPER SET — 46 ədəd', price:'32.00', desc:'Kaliforniya 8 əd • Filadelfiya 8 əd • Hot roll toyuq 10 əd • Hot roll krab 10 əd • Baked kapa maki 10 əd'},
+    {name:'MİX SET — 54 ədəd', price:'39.00', desc:'Cheddar roll 8 əd • Kaliforniya 8 əd • Alyaska roll 8 əd • Ebi maki 10 əd • Sake maki baked 10 əd • Hot roll krab 10 əd'},
+  ]},
+  { id:'rolls', tab:'🍣 Suşi Rollalar (8 əd)', items:[
+    {name:'Kaliforniya', price:'9.50'},{name:'Filadelfiya', price:'10.00'},
+    {name:'Cheddar roll', price:'8.90'},{name:'Kaliforniya krevetka ilə', price:'9.50'},
+    {name:'Lays roll', price:'8.90'},{name:'Alyaska roll', price:'9.50'},
+    {name:'Filadelfiya delux', price:'11.00'},{name:'Avokado roll', price:'10.00'},
+    {name:'Vegeterian roll', price:'7.90'},
+  ]},
+  { id:'maki', tab:'🥢 Maki Suşi (10 əd)', items:[
+    {name:'Kappa Maki', price:'4.99'},{name:'Salmon Maki', price:'8.50'},
+    {name:'Krevetka Maki', price:'8.00'},{name:'Maki krab', price:'7.50'},
+  ]},
+  { id:'hotrolls', tab:'🔥 Hot Rollalar (10 əd)', items:[
+    {name:'Crunch hot roll', price:'9.00'},{name:'Hot roll krab ilə', price:'9.50'},
+    {name:'Hot roll krevetka ilə', price:'9.50'},{name:'Hot roll qızıl balıq ilə', price:'10.00'},
+    {name:'Tempuralı krevetka', variants:[['3 ədəd','5.00'],['5 ədəd','8.00']]},
+  ]},
+  { id:'baked', tab:'🧀 Baked Rollalar (10 əd)', items:[
+    {name:'Kapa maki baket', price:'5.90'},{name:'Sake maki baked', price:'9.00'},
+    {name:'Kani maki baked', price:'8.00'},{name:'Krevetka maki baked', price:'9.00'},
+  ]},
+  { id:'doner', tab:'🥙 Dönərlər', items:[
+    {name:'Toyuq dönər', variants:[['Çörəkdə','2.30'],['Lavaş','2.60'],['Basdırma','2.80'],['Tombik','3.50'],['Limuzin','4.00'],['Porsion','7.00'],['Plovüstü','6.00'],['Şaurma çörək','2.80'],['Şaurma lavaş','3.30']]},
+    {name:'Ət dönər', variants:[['Çörəkdə','2.80'],['Lavaş','3.20'],['Basdırma','3.30'],['Şaurma çörək','3.30'],['Şaurma lavaş','3.60'],['Tombik','4.00'],['Limuzin','4.50'],['Plovüstü','7.50'],['Porsion','8.00'],['İsgəndər','9.00']]},
+  ]},
+  { id:'pizza', tab:'🍕 Pizzalar & Pidelər', items:[
+    {name:'Pizzalar (Böyük / Mini)', variants:[['Göbələkli','7.90 / 4.00'],['Marqarita','8.90 / 4.00'],['Sosisqalı','9.90 / 4.50'],['Sucuqlu','9.90 / 4.50'],['Toyuqlu','10.90 / 4.50'],['Qarışıq','12.90 / 5.00'],['Meksikano','16.00 / 7.00']]},
+    {name:'Pidelər', variants:[['Pendirli','6.50'],['Qiyməli','6.50'],['Qiyməli pendirli','7.00'],['Toyuqlu','6.30'],['Göbələkli','5.50'],['Sosisqalı','6.00'],['Sucuqlu','6.00'],['Quşbaşı','7.00'],['Qarışıq','7.50']]},
+    {name:'Lahmacun', variants:[['Sadə','2.50'],['Acılı','2.50'],['Pendirli','3.00'],['Cevizli','3.20'],['Qarışıq','3.50']]},
+  ]},
+  { id:'fastfood', tab:'🍔 Fast Food & Kabablar', items:[
+    {name:'Fast Food', variants:[['Fri','2.50'],['Nuggets','4.00'],['KFC bud','4.00'],['KFC qanad','4.00'],['Ət burger','5.50'],['Toyuq burger','4.50']]},
+    {name:'Kabablar', variants:[['Toyuq','5.00'],['Lülə','6.00'],['Lülə çörək/lavaş arası','3.50'],['Ciyər','4.00'],['Ciyər quyruq','5.50'],['Tərəvəz','3.00'],['Quyruq','7.00']]},
+    {name:'İsti Yeməklər', variants:[['Püre kotlet','4.00'],['Toyuq qızartması kartof ilə','5.00'],['Gürcü xəngəli','0.90'],['Qızardılmış gürcü xəngəli','1.00']]},
+  ]},
+  { id:'other', tab:'🍲 Digər & İçkilər', items:[
+    {name:'Səhər yeməkləri', variants:[['Pomidor yumurta','2.50'],['Sosiska yumurta','3.00'],['Kolbasa yumurta','3.50']]},
+    {name:'Salatlar', variants:[['Paytaxt','3.00'],['Mimoza','3.00'],['Manqal','3.00']]},
+    {name:'Şorbalar', variants:[['Mərci','2.50'],['Toyuq','3.00'],['Düşbərə','3.50']]},
+    {name:'Kombolar', variants:[['Uşaq Menyusu','11.00'],['Biznes Lunch','5.00'],['Çay dəsgahı','10.00']]},
+    {name:'İçkilər', variants:[['Cola/Fanta 0.3L','1.00'],['Cola/Fanta 0.5L','1.50'],['Cola/Fanta 1L','2.00'],['Ayran','0.60'],['Çöplü sok','1.00']]},
+  ]},
+];
+
+const WHATSAPP_NUMBER = '994777110600';
+let cart = {}; // {key: {name, price, qty}}
+
+/* ================= MENYU RENDER (SİFARİŞ DÜYMƏLƏRİ İLƏ) ================= */
+const tabsBox = document.getElementById('menuTabs');
+const panelsBox = document.getElementById('menuPanels');
+
+function esc(s){ return s.replace(/"/g,'&quot;'); }
+
+MENU.forEach((cat, i) => {
+  const tab = document.createElement('button');
+  tab.className = 'tab' + (i === 0 ? ' active' : '');
+  tab.textContent = cat.tab;
+  tab.onclick = () => switchTab(cat.id, tab);
+  tabsBox.appendChild(tab);
+
+  const panel = document.createElement('div');
+  panel.className = 'menu-panel' + (i === 0 ? ' show' : '');
+  panel.id = 'panel-' + cat.id;
+
+  const grid = document.createElement('div');
+  grid.className = 'items';
+
+  cat.items.forEach(it => {
+    const card = document.createElement('div');
+    card.className = 'item';
+
+    if (it.variants) {
+      card.innerHTML = `<div class="item-top"><h4>${it.name}</h4></div>` +
+        it.variants.map(v => {
+          const fullName = it.name + ' — ' + v[0];
+          return `<div class="variant">
+            <span>${v[0]}</span>
+            <span style="display:flex;align-items:center;gap:10px">
+              <span class="price">${v[1]} AZN</span>
+              <button class="add-btn" data-name="${esc(fullName)}" data-price="${v[1]}">+ Əlavə Et</button>
+            </span>
+          </div>`;
+        }).join('');
+    } else {
+      card.innerHTML = `<div class="item-top"><h4>${it.name}</h4><span class="price">${it.price} AZN</span></div>` +
+        (it.desc ? `<p class="desc">${it.desc}</p>` : '') +
+        `<div><button class="add-btn" data-name="${esc(it.name)}" data-price="${it.price}">+ Səbətə Əlavə Et</button></div>`;
+    }
+    grid.appendChild(card);
+  });
+
+  panel.appendChild(grid);
+  panelsBox.appendChild(panel);
+});
+
+function switchTab(id, tabBtn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tabBtn.classList.add('active');
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('show'));
+  document.getElementById('panel-' + id).classList.add('show');
+}
+
+/* ================= SƏBƏT FUNKSİYALARI ================= */
+function addToCart(name, price) {
+  price = parseFloat(price);
+  if (cart[name]) {
+    cart[name].qty++;
+  } else {
+    cart[name] = {name, price, qty: 1};
+  }
+  updateCartUI();
+  showToast(`${name} səbətə əlavə edildi!`);
+}
+
+function changeQty(name, delta) {
+  if (!cart[name]) return;
+  cart[name].qty += delta;
+  if (cart[name].qty <= 0) delete cart[name];
+  updateCartUI();
+}
+
+function removeFromCart(name) {
+  delete cart[name];
+  updateCartUI();
+}
+
+function getCartTotal() {
+  return Object.values(cart).reduce((sum, e) => sum + e.price * e.qty, 0);
+}
+
+function getCartCount() {
+  return Object.values(cart).reduce((sum, e) => sum + e.qty, 0);
+}
+
+function updateCartUI() {
+  const count = getCartCount();
+  const countEl = document.getElementById('cartCount');
+  const fabCountEl = document.getElementById('fabCartCount');
+  countEl.textContent = count;
+  fabCountEl.textContent = count;
+  countEl.classList.remove('bump'); fabCountEl.classList.remove('bump');
+  void countEl.offsetWidth;
+  countEl.classList.add('bump'); fabCountEl.classList.add('bump');
+
+  const itemsBox = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+
+  if (count === 0) {
+    itemsBox.innerHTML = `<div class="cart-empty"><span>🛒</span>Səbətiniz hələ boşdur.<br>Menyudan seçim edin!</div>`;
+    footer.style.display = 'none';
+    return;
+  }
+
+  itemsBox.innerHTML = Object.values(cart).map(e => `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${e.name}</div>
+        <div class="cart-item-price">${e.price.toFixed(2)} AZN</div>
+      </div>
+      <div class="qty-controls">
+        <button class="qty-btn" data-action="dec" data-name="${esc(e.name)}">−</button>
+        <span class="qty-num">${e.qty}</span>
+        <button class="qty-btn" data-action="inc" data-name="${esc(e.name)}">+</button>
+      </div>
+      <div class="cart-item-total">${(e.price * e.qty).toFixed(2)}</div>
+      <button class="remove-btn" data-action="remove" data-name="${esc(e.name)}" title="Sil">🗑</button>
+    </div>
+  `).join('');
+
+  document.getElementById('cartTotal').textContent = getCartTotal().toFixed(2) + ' AZN';
+  footer.style.display = 'block';
+}
+
+/* "+ Əlavə Et" düymələri — event delegation */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.add-btn');
+  if (btn) {
+    addToCart(btn.dataset.name, btn.dataset.price);
+    btn.classList.add('added');
+    const oldText = btn.textContent;
+    btn.textContent = '✓ Əlavə edildi';
+    setTimeout(() => { btn.classList.remove('added'); btn.textContent = oldText; }, 1200);
+    return;
+  }
+
+  const qty = e.target.closest('.qty-btn');
+  if (qty) {
+    changeQty(qty.dataset.name, qty.dataset.action === 'inc' ? 1 : -1);
+    return;
+  }
+
+  const rem = e.target.closest('.remove-btn');
+  if (rem) removeFromCart(rem.dataset.name);
+});
+
+/* ================= DRAWER / MODAL AÇ-BAĞLA ================= */
+const drawer = document.getElementById('cartDrawer');
+const overlay = document.getElementById('drawerOverlay');
+const modal = document.getElementById('orderModal');
+
+function openCart() { drawer.classList.add('open'); overlay.classList.add('show'); }
+function closeCart() { drawer.classList.remove('open'); overlay.classList.remove('show'); }
+
+document.getElementById('cartOpenBtn').onclick = openCart;
+document.getElementById('fabCart').onclick = openCart;
+document.getElementById('cartCloseBtn').onclick = closeCart;
+overlay.onclick = closeCart;
+
+document.getElementById('checkoutBtn').onclick = () => {
+  if (getCartCount() === 0) return;
+  renderOrderSummary();
+  closeCart();
+  modal.classList.add('show');
+};
+document.getElementById('modalCloseBtn').onclick = () => modal.classList.remove('show');
+modal.onclick = e => { if (e.target === modal) modal.classList.remove('show'); };
+
+document.getElementById('clearCartBtn').onclick = () => {
+  cart = {};
+  updateCartUI();
+  showToast('Səbət təmizləndi');
+};
+
+function renderOrderSummary() {
+  document.getElementById('orderSummary').innerHTML =
+    Object.values(cart).map(e =>
+      `<div><span>${e.name} × ${e.qty}</span><span>${(e.price * e.qty).toFixed(2)} AZN</span></div>`
+    ).join('') +
+    `<div class="sum-total"><span>CƏMİ:</span><span>${getCartTotal().toFixed(2)} AZN</span></div>
+     <div style="color:#22c55e;font-weight:700">🛵 Çatdırılma: PULSUZ</div>`;
+}
+
+/* ================= WHATSAPP-A GÖNDƏR ================= */
+document.getElementById('orderForm').addEventListener('submit', e => {
+  e.preventDefault();
+
+  const name    = document.getElementById('customerName').value.trim();
+  const phone   = document.getElementById('customerPhone').value.trim();
+  const address = document.getElementById('customerAddress').value.trim();
+  const note    = document.getElementById('customerNote').value.trim();
+
+  if (!name || !phone || !address) {
+    showToast('Zəhmət olmasa bütün xanaları doldurun!');
+    return;
+  }
+
+  let message = '🔔 *YENİ SİFARİŞ — DADMALI RESTORAN*\n';
+  message += '━━━━━━━━━━━━━━━\n\n';
+  message += '🧾 *Sifariş:*\n';
+  Object.values(cart).forEach(e2 => {
+    message += `▪️ ${e2.name} × ${e2.qty} — ${(e2.price * e2.qty).toFixed(2)} AZN\n`;
+  });
+  message += `\n💰 *Ümumi məbləğ:* ${getCartTotal().toFixed(2)} AZN\n`;
+  message += `🛵 *Çatdırılma:* PULSUZ\n\n`;
+  message += `👤 *Ad:* ${name}\n`;
+  message += `📱 *Telefon:* ${phone}\n`;
+  message += `📍 *Ünvan:* ${address}\n`;
+  if (note) message += `📝 *Qeyd:* ${note}\n`;
+
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+
+  modal.classList.remove('show');
+  showToast('Sifarişiniz WhatsApp-a göndərildi! ✅');
+  cart = {};
+  updateCartUI();
+  document.getElementById('orderForm').reset();
+});
+
+/* ================= TOAST ================= */
+let toastTimer;
+function showToast(text) {
+  document.getElementById('toastText').textContent = text;
+  document.getElementById('toast').classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => document.getElementById('toast').classList.remove('show'), 2500);
+}
+
+/* ================= MOBİL NAV ================= */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.onclick = () => navLinks.classList.toggle('open');
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+/* ================= YUXARI ÇIX ================= */
+document.getElementById('toTop').onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* İlk render */
+updateCartUI();
+</script>
+</body>
+</html>
